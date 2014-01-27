@@ -53,6 +53,10 @@ repos [
   {
     place: "https://github.com/tbpgr/rspec_piccolo.git",
     output: "./tmp",
+    copies: [
+      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"}, 
+      {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
+    ]
   },
   {
     place: "https://github.com/tbpgr/tbpgr_utils.git",
@@ -70,10 +74,18 @@ gitcloner clone
 
 ~~~bash
 $ tree
+├─rspec_piccolo
+├─sample
+｜ ├rspec_piccolo_spec.rb
+｜ └spec_helper.rb
 ├─tmp
-｜  rspec_piccolo
+｜ └rspec_piccolo
 └─tbpgr_utils
 ~~~
+
+## History
+* version 0.0.2 : add directories copy.
+* version 0.0.1 : first release.
 
 ## Contributing
 

@@ -1,6 +1,7 @@
 # encoding: utf-8
 require 'git_cloner_dsl'
 require "uri"
+require 'fileutils'
 
 module GitCloner
   #  GitCloner Core
@@ -16,12 +17,19 @@ module GitCloner
 default_output "./"
 
 # git repositries
-# repo allow only Array(in Array, Hash[:place, :output])
+# repo allow only Array(in Array, Hash[:place, :output, :copies])
+# copies is option.
+# copies must have Array[Hash{:from, :to}].
+# you can copy files or directories.
 # repo's default value => []
 repos [
   {
     place: 'https://github.com/tbpgr/rspec_piccolo.git',
-    output: './tmp'
+    output: './tmp',
+    copies: [
+      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"}, 
+      {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
+    ]
   }
 ]
     EOS
@@ -42,13 +50,15 @@ repos [
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a? Hash
         fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.has_key? :place
         repo_name = get_repo_name repo[:place]
-        target_dir = get_output(repo[:output], default_output)
-        FileUtils.mkdir_p(target_dir) unless Dir.exists? target_dir
-        Dir.chdir(target_dir)
+        target = get_output(repo[:output], default_output)
+        FileUtils.mkdir_p(target) unless Dir.exists? target
+        Dir.chdir(target)
         result = system("git clone #{repo[:place]} --depth=1")
         remove_dot_git_directory repo_name
         show_result_message(result, repo_name)
         Dir.chdir base
+        next if repo[:copies].nil?
+        copy_targets repo[:copies]
       end
     end
 
@@ -83,7 +93,15 @@ repos [
       if result
         puts "clone #{Dir.pwd}/#{repo_name} complete"
       else
-        pust "clone #{Dir.pwd}/#{repo_name} fail"
+        puts "clone #{Dir.pwd}/#{repo_name} fail"
+      end
+    end
+
+    def copy_targets(copies)
+      copies.each do |cp_dir|
+        fail ArgumentError, 'invalid repos. copies must have from' unless cp_dir[:from]
+        fail ArgumentError, 'invalid repos. copies must have to' unless cp_dir[:to]
+        FileUtils.cp_r cp_dir[:from], cp_dir[:to]
       end
     end
   end

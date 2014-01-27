@@ -104,6 +104,24 @@ repos [
 ]
     EOF
 
+    GIT_CLONER_CASE5 =<<-EOF
+# encoding: utf-8
+default_output "./"
+repos [
+  {
+    place: "https://github.com/tbpgr/rspec_piccolo.git",
+    output: "./tmp",
+    copies: [
+      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"}, 
+      {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
+    ]
+  },
+  {
+    place: "https://github.com/tbpgr/tbpgr_utils.git",
+  }
+]
+    EOF
+
     cases = [
       {
         case_no: 1,
@@ -128,6 +146,12 @@ repos [
         case_title: "invalid repos case(Array[Hash] but invalid hash key)",
         input: GIT_CLONER_CASE4,
         has_error: true,
+      },
+      {
+        case_no: 5,
+        case_title: "clone git and copy directories case",
+        input: GIT_CLONER_CASE5,
+        expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
       },
     ]
 
