@@ -78,12 +78,14 @@ $ tree
 ├─helper
 ｜ └spec_helper.rb
 ├─rspec_piccolo
+｜ └many files...
 ├─sample
 ｜ ├rspec_piccolo_spec.rb
 ｜ └spec_helper.rb
 ├─tmp
 ｜ └rspec_piccolo
 └─tbpgr_utils
+    └many files...
 ~~~
 
 ## History
