@@ -1,27 +1,27 @@
 #!/usr/bin/env ruby
 # encoding: utf-8
 
-require "git_cloner_core"
-require "git_cloner/version"
-require "thor"
+require 'git_cloner_core'
+require 'git_cloner/version'
+require 'thor'
 
 module GitCloner
   # GitCloner CLI
   class CLI < Thor
-    class_option :help, :type => :boolean, :aliases => '-h', :desc => 'help message.'
-    class_option :version, :type => :boolean, :desc => 'version'
+    class_option :help, type: :boolean, aliases: '-h', desc: 'help message.'
+    class_option :version, type: :boolean, desc: 'version'
 
-    desc "clone", "clone git repositories from Gitclonerfile"
+    desc 'clone', 'clone git repositories from Gitclonerfile'
     def clone
       GitCloner::Core.new.execute
     end
 
-    desc "init", "generate Gitclonerfile"
+    desc 'init', 'generate Gitclonerfile'
     def init
       GitCloner::Core.new.init
     end
 
-    desc "version", "version"
+    desc 'version', 'version'
     def version
       p GitCloner::VERSION
     end

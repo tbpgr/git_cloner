@@ -1,13 +1,13 @@
 # encoding: utf-8
 require 'git_cloner_dsl'
-require "uri"
+require 'uri'
 require 'fileutils'
 
 module GitCloner
   #  GitCloner Core
   class Core
-    GIT_CLONER_FILE = "Gitclonerfile"
-    GIT_CLONER_TEMPLATE =<<-EOS
+    GIT_CLONER_FILE = 'Gitclonerfile'
+    GIT_CLONER_TEMPLATE = <<-EOS
 # encoding: utf-8
 
 # default_output place
@@ -27,19 +27,19 @@ repos [
     place: 'https://github.com/tbpgr/rspec_piccolo.git',
     output: './tmp',
     copies: [
-      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"}, 
+      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"},
       {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
     ]
   }
 ]
     EOS
 
-    #== generate Gitclonerfile to current directory.
+    # == generate Gitclonerfile to current directory.
     def init
-      File.open(GIT_CLONER_FILE, "w") {|f|f.puts GIT_CLONER_TEMPLATE}
+      File.open(GIT_CLONER_FILE, 'w') { |f|f.puts GIT_CLONER_TEMPLATE }
     end
 
-    #== clone git repositories
+    # == clone git repositories
     def execute
       dsl = get_dsl
       base = Dir.pwd
@@ -48,7 +48,7 @@ repos [
       fail ArgumentError, 'invalid repos. repos must be Array.' unless tmp_repos.is_a? Array
       tmp_repos.each do |repo|
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a? Hash
-        fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.has_key? :place
+        fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key? :place
         repo_name = get_repo_name repo[:place]
         target = get_output(repo[:output], default_output)
         FileUtils.mkdir_p(target) unless Dir.exists? target
@@ -72,7 +72,7 @@ repos [
     end
 
     def read_dsl
-      File.open(GIT_CLONER_FILE) {|f|f.read}
+      File.open(GIT_CLONER_FILE) { |f|f.read }
     end
 
     def get_repo_name(place)

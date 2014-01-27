@@ -1,6 +1,6 @@
 # encoding: utf-8
-require "spec_helper"
-require "git_cloner_core"
+require 'spec_helper'
+require 'git_cloner_core'
 
 describe GitCloner::Core do
   context :init do
@@ -47,7 +47,7 @@ describe GitCloner::Core do
 
   context :execute do
     OUTPUT_GIT_CLONER_TMP_DIR = 'tmp_git_cloner'
-    GIT_CLONER_CASE1 =<<-EOF
+    GIT_CLONER_CASE1 = <<-EOF
 # encoding: utf-8
 default_output "./"
 repos [
@@ -61,7 +61,7 @@ repos [
 ]
     EOF
 
-    RESULT_CASE1 =<<-EOF
+    RESULT_CASE1 = <<-EOF
 # encoding: utf-8
 require 'templatable'
 
@@ -82,19 +82,19 @@ line2:<%=placeholders[:param2]%>
 end
     EOF
 
-    GIT_CLONER_CASE2 =<<-EOF
+    GIT_CLONER_CASE2 = <<-EOF
 # encoding: utf-8
 default_output "./"
 repos "invalid"
     EOF
 
-    GIT_CLONER_CASE3 =<<-EOF
+    GIT_CLONER_CASE3 = <<-EOF
 # encoding: utf-8
 default_output "./"
 repos ["invalid"]
     EOF
 
-    GIT_CLONER_CASE4 =<<-EOF
+    GIT_CLONER_CASE4 = <<-EOF
 # encoding: utf-8
 default_output "./"
 repos [
@@ -104,7 +104,7 @@ repos [
 ]
     EOF
 
-    GIT_CLONER_CASE5 =<<-EOF
+    GIT_CLONER_CASE5 = <<-EOF
 # encoding: utf-8
 default_output "./"
 repos [
@@ -112,7 +112,7 @@ repos [
     place: "https://github.com/tbpgr/rspec_piccolo.git",
     output: "./tmp",
     copies: [
-      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"}, 
+      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"},
       {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
     ]
   },
@@ -125,31 +125,31 @@ repos [
     cases = [
       {
         case_no: 1,
-        case_title: "valid case",
+        case_title: 'valid case',
         input: GIT_CLONER_CASE1,
         expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils'],
       },
       {
         case_no: 2,
-        case_title: "invalid repos case(String)",
+        case_title: 'invalid repos case(String)',
         input: GIT_CLONER_CASE2,
         has_error: true,
       },
       {
         case_no: 3,
-        case_title: "invalid repos case(Array[Not Hash])",
+        case_title: 'invalid repos case(Array[Not Hash])',
         input: GIT_CLONER_CASE3,
         has_error: true,
       },
       {
         case_no: 4,
-        case_title: "invalid repos case(Array[Hash] but invalid hash key)",
+        case_title: 'invalid repos case(Array[Hash] but invalid hash key)',
         input: GIT_CLONER_CASE4,
         has_error: true,
       },
       {
         case_no: 5,
-        case_title: "clone git and copy directories case",
+        case_title: 'clone git and copy directories case',
         input: GIT_CLONER_CASE5,
         expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
       },
@@ -165,7 +165,7 @@ repos [
 
           # -- when --
           if c[:has_error]
-            lambda {git_cloner_core.execute}.should raise_error(StandardError)
+            lambda { git_cloner_core.execute }.should raise_error(StandardError)
             next
           end
           git_cloner_core.execute

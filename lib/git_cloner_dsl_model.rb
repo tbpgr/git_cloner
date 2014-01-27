@@ -7,7 +7,7 @@ module GitCloner
 
     # default_output place
     attr_accessor :default_output
-    validates :default_output, :presence => true
+    validates :default_output, presence: true
 
     # git repositries
     attr_accessor :repos
