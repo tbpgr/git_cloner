@@ -101,6 +101,8 @@ repos [
       copies.each do |cp_dir|
         fail ArgumentError, 'invalid repos. copies must have from' unless cp_dir[:from]
         fail ArgumentError, 'invalid repos. copies must have to' unless cp_dir[:to]
+        to_dir = File.dirname(cp_dir[:to])
+        FileUtils.mkdir_p(to_dir) unless Dir.exists? to_dir
         FileUtils.cp_r cp_dir[:from], cp_dir[:to]
       end
     end

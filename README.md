@@ -55,7 +55,8 @@ repos [
     output: "./tmp",
     copies: [
       {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"}, 
-      {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
+      {from: "./tmp/rspec_piccolo/spec", to: "./sample"}, 
+      {from: "./tmp/rspec_piccolo/spec/spec_helper.rb", to: "./helper/helper.rb"}, 
     ]
   },
   {
@@ -74,6 +75,8 @@ gitcloner clone
 
 ~~~bash
 $ tree
+├─helper
+｜ └spec_helper.rb
 ├─rspec_piccolo
 ├─sample
 ｜ ├rspec_piccolo_spec.rb
