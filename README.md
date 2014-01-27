@@ -89,7 +89,7 @@ $ tree
 ~~~
 
 ## History
-* version 0.0.2 : add directories copy.
+* version 0.0.2 : add files,directories copy.
 * version 0.0.1 : first release.
 
 ## Contributing
