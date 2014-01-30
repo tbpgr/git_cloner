@@ -192,4 +192,148 @@ repos [
       end
     end
   end
+
+  context :init do
+    OUTPUT_DSL_TMP_DIR = 'generate_dsl'
+    cases = [
+      {
+        case_no: 1,
+        case_title: 'valid case',
+        expected_file: GitCloner::Core::GIT_CLONER_FILE,
+        expected_content: GitCloner::Core::GIT_CLONER_TEMPLATE,
+      },
+    ]
+
+    cases.each do |c|
+      it "|case_no=#{c[:case_no]}|case_title=#{c[:case_title]}" do
+        begin
+          case_before c
+
+          # -- given --
+          git_cloner_core = GitCloner::Core.new
+
+          # -- when --
+          git_cloner_core.init
+
+          # -- then --
+          actual = File.read("./#{c[:expected_file]}")
+          expect(actual).to eq(c[:expected_content])
+        ensure
+          case_after c
+        end
+      end
+
+      def case_before(c)
+        Dir.mkdir(OUTPUT_DSL_TMP_DIR) unless Dir.exists? OUTPUT_DSL_TMP_DIR
+        Dir.chdir(OUTPUT_DSL_TMP_DIR)
+      end
+
+      def case_after(c)
+        Dir.chdir('../')
+        FileUtils.rm_rf(OUTPUT_DSL_TMP_DIR) if Dir.exists? OUTPUT_DSL_TMP_DIR
+      end
+    end
+  end
+
+  context :clone do
+    OUTPUT_GIT_CLONER_CLONE_TMP_DIR = 'tmp_git_cloner_clone'
+
+    cases = [
+      {
+        case_no: 1,
+        case_title: 'valid case',
+        default_output: "./",
+        repos: [
+          {
+            place: "https://github.com/tbpgr/rspec_piccolo.git",
+            output: "./tmp",
+          },
+          {
+            place: "https://github.com/tbpgr/tbpgr_utils.git",
+          }
+        ],
+        expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils'],
+      },
+      {
+        case_no: 2,
+        case_title: 'invalid repos case(String)',
+        default_output: "./",
+        repos: "invalid",
+        has_error: true,
+      },
+      {
+        case_no: 3,
+        case_title: 'invalid repos case(Array[Not Hash])',
+        default_output: "./",
+        repos: ["invalid"],
+        has_error: true,
+      },
+      {
+        case_no: 4,
+        default_output: "./",
+        repos: [
+          {
+            plase: "typo"
+          }
+        ],
+        has_error: true,
+      },
+      {
+        case_no: 5,
+        case_title: 'clone git and copy directories case',
+        default_output: "./",
+        repos: [
+          {
+            place: "https://github.com/tbpgr/rspec_piccolo.git",
+            output: "./tmp",
+            copies: [
+              {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"},
+              {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
+            ]
+          },
+          {
+            place: "https://github.com/tbpgr/tbpgr_utils.git",
+          }
+        ],
+        expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
+      },
+    ]
+
+    cases.each do |c|
+      it "|case_no=#{c[:case_no]}|case_title=#{c[:case_title]}" do
+        begin
+          case_before c
+
+          # -- given --
+          git_cloner_core = GitCloner::Core.new
+
+          # -- when --
+          if c[:has_error]
+            lambda { git_cloner_core.clone(c[:default_output], c[:repos]) }.should raise_error(StandardError)
+            next
+          end
+          git_cloner_core.clone(c[:default_output], c[:repos])
+
+          # -- then --
+          c[:expecteds].each do |expected|
+            actual_exists = File.exists? expected
+            expect(actual_exists).to be_true
+          end
+        ensure
+          case_after c
+        end
+      end
+
+      def case_before(c)
+        Dir.mkdir(OUTPUT_GIT_CLONER_CLONE_TMP_DIR) unless Dir.exists? OUTPUT_GIT_CLONER_CLONE_TMP_DIR
+        Dir.chdir(OUTPUT_GIT_CLONER_CLONE_TMP_DIR)
+        File.open(GitCloner::Core::GIT_CLONER_FILE, 'w:UTF-8') { |f|f.print c[:input] }
+      end
+
+      def case_after(c)
+        Dir.chdir('../')
+        FileUtils.rm_rf(OUTPUT_GIT_CLONER_CLONE_TMP_DIR) if Dir.exists? OUTPUT_GIT_CLONER_CLONE_TMP_DIR
+      end
+    end
+  end
 end
