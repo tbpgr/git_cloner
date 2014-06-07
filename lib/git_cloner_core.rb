@@ -53,7 +53,7 @@ repos [
       fail ArgumentError, 'invalid repos. repos must be Array.' unless tmp_repos.is_a? Array
       tmp_repos.each do |repo|
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a? Hash
-        fail ArgumentError, 'invalid key. Hash musft contain :place key' unless repo.key? :place
+        fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key? :place
         repo_name = get_repo_name repo[:place]
         target = get_output(repo[:output], default_output)
         FileUtils.mkdir_p(target) unless Dir.exist? target
