@@ -43,8 +43,8 @@ repos [
       dsl = get_dsl
       base_dir = Dir.pwd
       default_output = dsl.git_cloner.default_output
-      tmp_repos = dsl.git_cloner.repos
-      git_clone(default_output, tmp_repos, base_dir)
+      repos = dsl.git_cloner.repos
+      git_clone(default_output, repos, base_dir)
     end
 
     private
@@ -60,9 +60,9 @@ repos [
       File.open(GIT_CLONER_FILE) { |f|f.read }
     end
 
-    def git_clone(default_output, tmp_repos, base_dir)
-      fail ArgumentError, 'invalid repos. repos must be Array.' unless tmp_repos.is_a? Array
-      tmp_repos.each do |repo|
+    def git_clone(default_output, repos, base_dir)
+      fail ArgumentError, 'invalid repos. repos must be Array.' unless repos.is_a? Array
+      repos.each do |repo|
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a?(Hash)
         fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key?(:place)
         repo_name = get_repo_name repo[:place]
