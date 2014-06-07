@@ -134,12 +134,14 @@ repos [
 
     def copy_targets(copies)
       return if copies.nil?
-      copies.each do |cp_dir|
-        fail ArgumentError, 'invalid repos. copies must have from' unless cp_dir[:from]
-        fail ArgumentError, 'invalid repos. copies must have to' unless cp_dir[:to]
-        FileUtils.mkdir_p(cp_dir[:to]) unless Dir.exist? File.dirname(cp_dir[:to])
-        FileUtils.cp_r cp_dir[:from], cp_dir[:to]
-      end
+      copies.each { |copy_dir|copy_target(copy_dir) }
+    end
+
+    def copy_target(copy_dir)
+      fail ArgumentError, 'invalid repos. copies must have from' unless copy_dir[:from]
+      fail ArgumentError, 'invalid repos. copies must have to' unless copy_dir[:to]
+      FileUtils.mkdir_p(copy_dir[:to]) unless Dir.exist? File.dirname(copy_dir[:to])
+      FileUtils.cp_r copy_dir[:from], copy_dir[:to]
     end
   end
 end
