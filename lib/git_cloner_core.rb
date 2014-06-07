@@ -11,7 +11,6 @@ module GitCloner
 # encoding: utf-8
 
 # default_output place
-# default_output is required
 # default_output allow only String
 # default_output's default value => "./"
 default_output "./"
