@@ -73,11 +73,11 @@ repos [
     def clone_repository(default_output, repo, base_dir)
       check_repos_hash(repo)
       check_repos_hash_key(repo)
-      repo_name = get_repo_name repo[:place]
       output_dir = get_output_dir(repo[:output], default_output)
       make_output_dir(output_dir)
       Dir.chdir(output_dir)
       result = system("git clone #{repo[:place]} --depth=1")
+      repo_name = get_repo_name repo[:place]
       remove_dot_git_directory repo_name
       show_result_message(result, repo_name)
       Dir.chdir(base_dir)
