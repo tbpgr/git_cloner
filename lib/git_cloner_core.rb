@@ -126,11 +126,8 @@ repos [
     end
 
     def show_result_message(result, repo_name)
-      if result
-        puts("clone #{Dir.pwd}/#{repo_name} complete")
-      else
-        puts("clone #{Dir.pwd}/#{repo_name} fail")
-      end
+      result_msg = result ? 'complete' : 'fail'
+      puts("clone #{Dir.pwd}/#{repo_name} #{result_msg}")
     end
   end
 end
