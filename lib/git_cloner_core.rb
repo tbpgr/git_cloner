@@ -41,10 +41,10 @@ repos [
     #== clone git repositories
     def clone
       dsl = get_dsl
-      base = Dir.pwd
+      base_dir = Dir.pwd
       default_output = dsl.git_cloner.default_output
       tmp_repos = dsl.git_cloner.repos
-      git_clone(default_output, tmp_repos, base)
+      git_clone(default_output, tmp_repos, base_dir)
     end
 
     private
@@ -60,7 +60,7 @@ repos [
       File.open(GIT_CLONER_FILE) { |f|f.read }
     end
 
-    def git_clone(default_output, tmp_repos, base)
+    def git_clone(default_output, tmp_repos, base_dir)
       fail ArgumentError, 'invalid repos. repos must be Array.' unless tmp_repos.is_a? Array
       tmp_repos.each do |repo|
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a?(Hash)
@@ -72,7 +72,7 @@ repos [
         result = system("git clone #{repo[:place]} --depth=1")
         remove_dot_git_directory repo_name
         show_result_message(result, repo_name)
-        Dir.chdir(base)
+        Dir.chdir(base_dir)
         next if repo[:copies].nil?
         copy_targets(repo[:copies])
       end
