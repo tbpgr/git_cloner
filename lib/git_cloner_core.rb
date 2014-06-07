@@ -61,7 +61,7 @@ repos [
     end
 
     def clone_repositories(default_output, repos, base_dir)
-      fail ArgumentError, 'invalid repos. repos must be Array.' unless repos.is_a? Array
+      check_repos(repos)
       repos.each do |repo|
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a?(Hash)
         fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key?(:place)
@@ -76,6 +76,11 @@ repos [
         next if repo[:copies].nil?
         copy_targets(repo[:copies])
       end
+    end
+
+    def check_repos(repos)
+      return if repos.is_a? Array
+      fail ArgumentError, 'invalid repos. repos must be Array.'
     end
 
     def get_repo_name(place)
