@@ -1,5 +1,7 @@
 # GitCloner
 
+[![Build Status](https://travis-ci.org/tbpgr/git_cloner.png?branch=master)](https://travis-ci.org/tbpgr/git_cloner)
+
 GitCloner clone git repositoris from Gitclonerfile settings.
 
 ## Installation
