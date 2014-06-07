@@ -138,10 +138,20 @@ repos [
     end
 
     def copy_target(copy_dir)
-      fail ArgumentError, 'invalid repos. copies must have from' unless copy_dir[:from]
-      fail ArgumentError, 'invalid repos. copies must have to' unless copy_dir[:to]
+      check_copy_dir_from(copy_dir[:from])
+      check_copy_dir_to(copy_dir[:to])
       FileUtils.mkdir_p(copy_dir[:to]) unless Dir.exist? File.dirname(copy_dir[:to])
       FileUtils.cp_r copy_dir[:from], copy_dir[:to]
+    end
+
+    def check_copy_dir_from(from)
+      return if from
+      fail ArgumentError, 'invalid repos. copies must have from'
+    end
+
+    def check_copy_dir_to(to)
+      return if to
+      fail ArgumentError, 'invalid repos. copies must have from'
     end
   end
 end
