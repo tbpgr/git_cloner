@@ -49,6 +49,17 @@ repos [
 
     private
 
+    def get_dsl
+      src = read_dsl
+      dsl = GitCloner::Dsl.new
+      dsl.instance_eval src
+      dsl
+    end
+
+    def read_dsl
+      File.open(GIT_CLONER_FILE) { |f|f.read }
+    end
+
     def git_clone(default_output, tmp_repos, base)
       fail ArgumentError, 'invalid repos. repos must be Array.' unless tmp_repos.is_a? Array
       tmp_repos.each do |repo|
@@ -65,17 +76,6 @@ repos [
         next if repo[:copies].nil?
         copy_targets(repo[:copies])
       end
-    end
-
-    def get_dsl
-      src = read_dsl
-      dsl = GitCloner::Dsl.new
-      dsl.instance_eval src
-      dsl
-    end
-
-    def read_dsl
-      File.open(GIT_CLONER_FILE) { |f|f.read }
     end
 
     def get_repo_name(place)
