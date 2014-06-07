@@ -56,7 +56,7 @@ repos [
     output: "./tmp",
   },
   {
-    place: "https://github.com/tbpgr/tbpgr_utils.git",
+    place: "https://github.com/tbpgr/denrei.git",
   }
 ]
     EOF
@@ -117,7 +117,7 @@ repos [
     ]
   },
   {
-    place: "https://github.com/tbpgr/tbpgr_utils.git",
+    place: "https://github.com/tbpgr/denrei.git",
   }
 ]
     EOF
@@ -127,7 +127,7 @@ repos [
         case_no: 1,
         case_title: 'valid case',
         input: GIT_CLONER_CASE1,
-        expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils'],
+        expecteds: ['./tmp/rspec_piccolo', './denrei'],
       },
       {
         case_no: 2,
@@ -151,7 +151,7 @@ repos [
         case_no: 5,
         case_title: 'clone git and copy directories case',
         input: GIT_CLONER_CASE5,
-        expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
+        expecteds: ['./tmp/rspec_piccolo', './denrei', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
       },
     ]
 
@@ -249,10 +249,10 @@ repos [
             output: "./tmp",
           },
           {
-            place: "https://github.com/tbpgr/tbpgr_utils.git",
+            place: "https://github.com/tbpgr/denrei.git",
           }
         ],
-        expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils'],
+        expecteds: ['./tmp/rspec_piccolo', './denrei'],
       },
       {
         case_no: 2,
@@ -292,10 +292,10 @@ repos [
             ]
           },
           {
-            place: "https://github.com/tbpgr/tbpgr_utils.git",
+            place: "https://github.com/tbpgr/denrei.git",
           }
         ],
-        expecteds: ['./tmp/rspec_piccolo', './tbpgr_utils', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
+        expecteds: ['./tmp/rspec_piccolo', './denrei', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
       },
     ]
 
