@@ -56,7 +56,7 @@ repos [
         fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key? :place
         repo_name = get_repo_name repo[:place]
         output_dir = get_output_dir(repo[:output], default_output)
-        FileUtils.mkdir_p(output_dir) unless Dir.exist? output_dir
+        make_output_dir(output_dir)
         Dir.chdir(output_dir)
         result = system("git clone #{repo[:place]} --depth=1")
         remove_dot_git_directory repo_name
@@ -85,6 +85,10 @@ repos [
 
     def get_output_dir(output, default_output)
       output.nil? ? default_output : output
+    end
+
+    def make_output_dir(output_dir)
+      FileUtils.mkdir_p(output_dir) unless Dir.exist? output_dir
     end
 
     def remove_dot_git_directory(repo_name)
