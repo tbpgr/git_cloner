@@ -62,20 +62,22 @@ repos [
 
     def clone_repositories(default_output, repos, base_dir)
       check_repos(repos)
-      repos.each do |repo|
-        fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a?(Hash)
-        fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key?(:place)
-        repo_name = get_repo_name repo[:place]
-        output_dir = get_output_dir(repo[:output], default_output)
-        make_output_dir(output_dir)
-        Dir.chdir(output_dir)
-        result = system("git clone #{repo[:place]} --depth=1")
-        remove_dot_git_directory repo_name
-        show_result_message(result, repo_name)
-        Dir.chdir(base_dir)
-        next if repo[:copies].nil?
-        copy_targets(repo[:copies])
-      end
+      repos.each { |repo|clone_repository(default_output, repo, base_dir) }
+    end
+
+    def clone_repository(default_output, repo, base_dir)
+      fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a?(Hash)
+      fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key?(:place)
+      repo_name = get_repo_name repo[:place]
+      output_dir = get_output_dir(repo[:output], default_output)
+      make_output_dir(output_dir)
+      Dir.chdir(output_dir)
+      result = system("git clone #{repo[:place]} --depth=1")
+      remove_dot_git_directory repo_name
+      show_result_message(result, repo_name)
+      Dir.chdir(base_dir)
+      return if repo[:copies].nil?
+      copy_targets(repo[:copies])
     end
 
     def check_repos(repos)
