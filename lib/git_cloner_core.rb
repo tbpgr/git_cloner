@@ -78,7 +78,6 @@ repos [
       move_to_output_dir(output_dir)
       execute_git_clone(repo[:place])
       back_to_base_dir(base_dir)
-      return if repo[:copies].nil?
       copy_targets(repo[:copies])
     end
 
@@ -134,6 +133,7 @@ repos [
     end
 
     def copy_targets(copies)
+      return if copies.nil?
       copies.each do |cp_dir|
         fail ArgumentError, 'invalid repos. copies must have from' unless cp_dir[:from]
         fail ArgumentError, 'invalid repos. copies must have to' unless cp_dir[:to]
