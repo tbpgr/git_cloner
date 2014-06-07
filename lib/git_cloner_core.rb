@@ -95,7 +95,6 @@ repos [
     end
 
     def get_output(output, default_output)
-      require 'test_toolbox'
       output.nil? ? default_output : output
     end
 
