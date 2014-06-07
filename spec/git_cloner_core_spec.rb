@@ -34,13 +34,13 @@ describe GitCloner::Core do
       end
 
       def case_before(c)
-        Dir.mkdir(OUTPUT_DSL_TMP_DIR) unless Dir.exists? OUTPUT_DSL_TMP_DIR
+        Dir.mkdir(OUTPUT_DSL_TMP_DIR) unless Dir.exist? OUTPUT_DSL_TMP_DIR
         Dir.chdir(OUTPUT_DSL_TMP_DIR)
       end
 
       def case_after(c)
         Dir.chdir('../')
-        FileUtils.rm_rf(OUTPUT_DSL_TMP_DIR) if Dir.exists? OUTPUT_DSL_TMP_DIR
+        FileUtils.rm_rf(OUTPUT_DSL_TMP_DIR) if Dir.exist? OUTPUT_DSL_TMP_DIR
       end
     end
   end
@@ -172,7 +172,7 @@ repos [
 
           # -- then --
           c[:expecteds].each do |expected|
-            actual_exists = File.exists? expected
+            actual_exists = File.exist? expected
             expect(actual_exists).to be_true
           end
         ensure
@@ -181,14 +181,14 @@ repos [
       end
 
       def case_before(c)
-        Dir.mkdir(OUTPUT_GIT_CLONER_TMP_DIR) unless Dir.exists? OUTPUT_GIT_CLONER_TMP_DIR
+        Dir.mkdir(OUTPUT_GIT_CLONER_TMP_DIR) unless Dir.exist? OUTPUT_GIT_CLONER_TMP_DIR
         Dir.chdir(OUTPUT_GIT_CLONER_TMP_DIR)
         File.open(GitCloner::Core::GIT_CLONER_FILE, 'w:UTF-8') { |f|f.print c[:input] }
       end
 
       def case_after(c)
         Dir.chdir('../')
-        FileUtils.rm_rf(OUTPUT_GIT_CLONER_TMP_DIR) if Dir.exists? OUTPUT_GIT_CLONER_TMP_DIR
+        FileUtils.rm_rf(OUTPUT_GIT_CLONER_TMP_DIR) if Dir.exist? OUTPUT_GIT_CLONER_TMP_DIR
       end
     end
   end
@@ -224,13 +224,13 @@ repos [
       end
 
       def case_before(c)
-        Dir.mkdir(OUTPUT_DSL_TMP_DIR) unless Dir.exists? OUTPUT_DSL_TMP_DIR
+        Dir.mkdir(OUTPUT_DSL_TMP_DIR) unless Dir.exist? OUTPUT_DSL_TMP_DIR
         Dir.chdir(OUTPUT_DSL_TMP_DIR)
       end
 
       def case_after(c)
         Dir.chdir('../')
-        FileUtils.rm_rf(OUTPUT_DSL_TMP_DIR) if Dir.exists? OUTPUT_DSL_TMP_DIR
+        FileUtils.rm_rf(OUTPUT_DSL_TMP_DIR) if Dir.exist? OUTPUT_DSL_TMP_DIR
       end
     end
   end
@@ -316,7 +316,7 @@ repos [
 
           # -- then --
           c[:expecteds].each do |expected|
-            actual_exists = File.exists? expected
+            actual_exists = File.exist? expected
             expect(actual_exists).to be_true
           end
         ensure
@@ -325,14 +325,14 @@ repos [
       end
 
       def case_before(c)
-        Dir.mkdir(OUTPUT_GIT_CLONER_CLONE_TMP_DIR) unless Dir.exists? OUTPUT_GIT_CLONER_CLONE_TMP_DIR
+        Dir.mkdir(OUTPUT_GIT_CLONER_CLONE_TMP_DIR) unless Dir.exist? OUTPUT_GIT_CLONER_CLONE_TMP_DIR
         Dir.chdir(OUTPUT_GIT_CLONER_CLONE_TMP_DIR)
         File.open(GitCloner::Core::GIT_CLONER_FILE, 'w:UTF-8') { |f|f.print c[:input] }
       end
 
       def case_after(c)
         Dir.chdir('../')
-        FileUtils.rm_rf(OUTPUT_GIT_CLONER_CLONE_TMP_DIR) if Dir.exists? OUTPUT_GIT_CLONER_CLONE_TMP_DIR
+        FileUtils.rm_rf(OUTPUT_GIT_CLONER_CLONE_TMP_DIR) if Dir.exist? OUTPUT_GIT_CLONER_CLONE_TMP_DIR
       end
     end
   end

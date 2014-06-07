@@ -8,14 +8,14 @@ module GitCloner
     # String Define
     [:default_output].each do |f|
       define_method f do |value|
-        eval "@git_cloner.#{f.to_s} = '#{value}'", binding
+        eval "@git_cloner.#{f} = '#{value}'", binding
       end
     end
 
     # Array/Hash/Boolean Define
     [:repos].each do |f|
       define_method f do |value|
-        eval "@git_cloner.#{f.to_s} = #{value}", binding
+        eval "@git_cloner.#{f} = #{value}", binding
       end
     end
 

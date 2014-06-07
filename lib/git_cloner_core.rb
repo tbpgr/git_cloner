@@ -36,7 +36,7 @@ repos [
 
     #== generate Gitclonerfile to current directory.
     def init
-      File.open(GIT_CLONER_FILE, "w") {|f|f.puts GIT_CLONER_TEMPLATE}
+      File.open(GIT_CLONER_FILE, "w") { |f|f.puts GIT_CLONER_TEMPLATE }
     end
 
     #== clone git repositories
@@ -64,10 +64,10 @@ repos [
       fail ArgumentError, 'invalid repos. repos must be Array.' unless tmp_repos.is_a? Array
       tmp_repos.each do |repo|
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a? Hash
-        fail ArgumentError, 'invalid key. Hash musft contain :place key' unless repo.has_key? :place
+        fail ArgumentError, 'invalid key. Hash musft contain :place key' unless repo.key? :place
         repo_name = get_repo_name repo[:place]
         target = get_output(repo[:output], default_output)
-        FileUtils.mkdir_p(target) unless Dir.exists? target
+        FileUtils.mkdir_p(target) unless Dir.exist? target
         Dir.chdir(target)
         result = system("git clone #{repo[:place]} --depth=1")
         remove_dot_git_directory repo_name
@@ -86,7 +86,7 @@ repos [
     end
 
     def read_dsl
-      File.open(GIT_CLONER_FILE) {|f|f.read}
+      File.open(GIT_CLONER_FILE) { |f|f.read }
     end
 
     def get_repo_name(place)
@@ -101,7 +101,7 @@ repos [
 
     def remove_dot_git_directory(repo_name)
       Dir.chdir("./#{repo_name}")
-      FileUtils.rm_rf('.git') if Dir.exists? '.git'
+      FileUtils.rm_rf('.git') if Dir.exist? '.git'
     end
 
     def show_result_message(result, repo_name)
@@ -116,7 +116,7 @@ repos [
       copies.each do |cp_dir|
         fail ArgumentError, 'invalid repos. copies must have from' unless cp_dir[:from]
         fail ArgumentError, 'invalid repos. copies must have to' unless cp_dir[:to]
-        FileUtils.mkdir_p(cp_dir[:to]) unless Dir.exists? File.dirname(cp_dir[:to])
+        FileUtils.mkdir_p(cp_dir[:to]) unless Dir.exist? File.dirname(cp_dir[:to])
         FileUtils.cp_r cp_dir[:from], cp_dir[:to]
       end
     end
