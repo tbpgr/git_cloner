@@ -2,6 +2,7 @@
 require 'git_cloner_dsl'
 require "uri"
 require 'fileutils'
+require 'copier'
 
 module GitCloner
   #  GitCloner Core
@@ -78,7 +79,7 @@ repos [
       move_to_output_dir(output_dir)
       execute_git_clone(repo[:place])
       back_to_base_dir(base_dir)
-      copy_targets(repo[:copies])
+      Copier.copy(repo[:copies])
     end
 
     def check_repos_hash(repo)
@@ -130,28 +131,6 @@ repos [
       else
         puts("clone #{Dir.pwd}/#{repo_name} fail")
       end
-    end
-
-    def copy_targets(copies)
-      return if copies.nil?
-      copies.each { |copy_dir|copy_target(copy_dir) }
-    end
-
-    def copy_target(copy_dir)
-      check_copy_dir_from(copy_dir[:from])
-      check_copy_dir_to(copy_dir[:to])
-      FileUtils.mkdir_p(copy_dir[:to]) unless Dir.exist? File.dirname(copy_dir[:to])
-      FileUtils.cp_r copy_dir[:from], copy_dir[:to]
-    end
-
-    def check_copy_dir_from(from)
-      return if from
-      fail ArgumentError, 'invalid repos. copies must have from'
-    end
-
-    def check_copy_dir_to(to)
-      return if to
-      fail ArgumentError, 'invalid repos. copies must have from'
     end
   end
 end
