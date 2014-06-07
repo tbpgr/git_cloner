@@ -35,7 +35,7 @@ repos [
 
     #== generate Gitclonerfile to current directory.
     def init
-      File.open(GIT_CLONER_FILE, "w") { |f|f.puts GIT_CLONER_TEMPLATE }
+      File.open(GIT_CLONER_FILE, "w") { |f|f.puts(GIT_CLONER_TEMPLATE) }
     end
 
     #== clone git repositories
@@ -52,8 +52,8 @@ repos [
     def git_clone(default_output, tmp_repos, base)
       fail ArgumentError, 'invalid repos. repos must be Array.' unless tmp_repos.is_a? Array
       tmp_repos.each do |repo|
-        fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a? Hash
-        fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key? :place
+        fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a?(Hash)
+        fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key?(:place)
         repo_name = get_repo_name repo[:place]
         output_dir = get_output_dir(repo[:output], default_output)
         make_output_dir(output_dir)
@@ -61,9 +61,9 @@ repos [
         result = system("git clone #{repo[:place]} --depth=1")
         remove_dot_git_directory repo_name
         show_result_message(result, repo_name)
-        Dir.chdir base
+        Dir.chdir(base)
         next if repo[:copies].nil?
-        copy_targets repo[:copies]
+        copy_targets(repo[:copies])
       end
     end
 
@@ -88,19 +88,19 @@ repos [
     end
 
     def make_output_dir(output_dir)
-      FileUtils.mkdir_p(output_dir) unless Dir.exist? output_dir
+      FileUtils.mkdir_p(output_dir) unless Dir.exist?(output_dir)
     end
 
     def remove_dot_git_directory(repo_name)
       Dir.chdir("./#{repo_name}")
-      FileUtils.rm_rf('.git') if Dir.exist? '.git'
+      FileUtils.rm_rf('.git') if Dir.exist?('.git')
     end
 
     def show_result_message(result, repo_name)
       if result
-        puts "clone #{Dir.pwd}/#{repo_name} complete"
+        puts("clone #{Dir.pwd}/#{repo_name} complete")
       else
-        puts "clone #{Dir.pwd}/#{repo_name} fail"
+        puts("clone #{Dir.pwd}/#{repo_name} fail")
       end
     end
 
