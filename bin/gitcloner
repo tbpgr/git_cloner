@@ -13,7 +13,7 @@ module GitCloner
 
     desc 'clone', 'clone git repositories from Gitclonerfile'
     def clone
-      GitCloner::Core.new.execute
+      GitCloner::Core.new.clone
     end
 
     desc 'init', 'generate Gitclonerfile'

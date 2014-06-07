@@ -39,22 +39,12 @@ repos [
     end
 
     #== clone git repositories
-    def execute
+    def clone
       dsl = get_dsl
       base = Dir.pwd
       default_output = dsl.git_cloner.default_output
       tmp_repos = dsl.git_cloner.repos
       git_clone(default_output, tmp_repos, base)
-    end
-
-    def clone(default_output, repos = [])
-      default_output ||= './'
-      base = Dir.pwd
-      dsl = GitCloner::Dsl.new
-
-      default_output = dsl.git_cloner.default_output
-      tmp_repos = dsl.git_cloner.repos
-      git_clone(default_output, repos, base)
     end
 
     private
