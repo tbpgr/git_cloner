@@ -71,8 +71,8 @@ repos [
     end
 
     def clone_repository(default_output, repo, base_dir)
-      fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a?(Hash)
-      fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key?(:place)
+      check_repos_hash(repo)
+      check_repos_hash_key(repo)
       repo_name = get_repo_name repo[:place]
       output_dir = get_output_dir(repo[:output], default_output)
       make_output_dir(output_dir)
@@ -83,6 +83,16 @@ repos [
       Dir.chdir(base_dir)
       return if repo[:copies].nil?
       copy_targets(repo[:copies])
+    end
+
+    def check_repos_hash(repo)
+      return if repo.is_a?(Hash)
+      fail ArgumentError, 'invalid repos. repos-Array must have Hash'
+    end
+
+    def check_repos_hash_key(repo)
+      return if repo.key?(:place)
+      fail ArgumentError, 'invalid key. Hash must contain :place key'
     end
 
     def get_repo_name(place)
