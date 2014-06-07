@@ -76,7 +76,7 @@ repos [
       output_dir = get_output_dir(repo[:output], default_output)
       make_output_dir(output_dir)
       move_to_output_dir(output_dir)
-      result = system("git clone #{repo[:place]} --depth=1")
+      result = execute_git_clone(repo[:place])
       repo_name = get_repo_name repo[:place]
       remove_dot_git_directory repo_name
       show_result_message(result, repo_name)
@@ -110,6 +110,10 @@ repos [
 
     def move_to_output_dir(output_dir)
       Dir.chdir(output_dir)
+    end
+
+    def execute_git_clone(url)
+      system("git clone #{url} --depth=1")
     end
 
     def remove_dot_git_directory(repo_name)
