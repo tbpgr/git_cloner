@@ -77,7 +77,7 @@ repos [
       make_output_dir(output_dir)
       move_to_output_dir(output_dir)
       execute_git_clone(repo[:place])
-      Dir.chdir(base_dir)
+      back_to_base_dir(base_dir)
       return if repo[:copies].nil?
       copy_targets(repo[:copies])
     end
@@ -114,6 +114,10 @@ repos [
       repo_name = get_repo_name(url)
       remove_dot_git_directory repo_name
       show_result_message(result, repo_name)
+    end
+
+    def back_to_base_dir(base_dir)
+      Dir.chdir(base_dir)
     end
 
     def remove_dot_git_directory(repo_name)
