@@ -55,7 +55,7 @@ repos [
         fail ArgumentError, 'invalid repos. repos-Array must have Hash' unless repo.is_a? Hash
         fail ArgumentError, 'invalid key. Hash must contain :place key' unless repo.key? :place
         repo_name = get_repo_name repo[:place]
-        output_dir = get_output(repo[:output], default_output)
+        output_dir = get_output_dir(repo[:output], default_output)
         FileUtils.mkdir_p(output_dir) unless Dir.exist? output_dir
         Dir.chdir(output_dir)
         result = system("git clone #{repo[:place]} --depth=1")
@@ -83,7 +83,7 @@ repos [
       uri.path.gsub(/.*\//, '').gsub('.git', '')
     end
 
-    def get_output(output, default_output)
+    def get_output_dir(output, default_output)
       output.nil? ? default_output : output
     end
 
