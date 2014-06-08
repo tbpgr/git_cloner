@@ -64,7 +64,7 @@ describe GitCloner::Copier do
         end
       end
 
-      def case_before(c)
+      def case_before(c) # rubocop:disable UnusedMethodArgument
         Dir.mkdir(TMP_COPY) unless Dir.exist?(TMP_COPY)
         Dir.chdir(TMP_COPY)
         c[:prepare_files].each do |file|
@@ -74,7 +74,7 @@ describe GitCloner::Copier do
         end
       end
 
-      def case_after(c)
+      def case_after(c) # rubocop:disable UnusedMethodArgument
         Dir.chdir('../')
         FileUtils.rm_rf(TMP_COPY) if Dir.exist?(TMP_COPY)
       end

@@ -33,12 +33,12 @@ describe GitCloner::Core do
         end
       end
 
-      def case_before(c)
+      def case_before(c) # rubocop:disable UnusedMethodArgument
         Dir.mkdir(OUTPUT_DSL_TMP_DIR) unless Dir.exist? OUTPUT_DSL_TMP_DIR
         Dir.chdir(OUTPUT_DSL_TMP_DIR)
       end
 
-      def case_after(c)
+      def case_after(c) # rubocop:disable UnusedMethodArgument
         Dir.chdir('../')
         FileUtils.rm_rf(OUTPUT_DSL_TMP_DIR) if Dir.exist? OUTPUT_DSL_TMP_DIR
       end
@@ -186,7 +186,7 @@ repos [
         File.open(GitCloner::Core::GIT_CLONER_FILE, 'w:UTF-8') { |f|f.print c[:input] }
       end
 
-      def case_after(c)
+      def case_after(c) # rubocop:disable UnusedMethodArgument
         Dir.chdir('../')
         FileUtils.rm_rf(OUTPUT_GIT_CLONER_TMP_DIR) if Dir.exist? OUTPUT_GIT_CLONER_TMP_DIR
       end
