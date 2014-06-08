@@ -2,6 +2,7 @@
 require 'git_cloner_dsl_model'
 
 module GitCloner
+  # Dsl
   class Dsl
     attr_accessor :git_cloner
 
