@@ -52,7 +52,7 @@ describe GitCloner::Copier do
 
           # -- when --
           if c[:expect_error]
-            lambda { GitCloner::Copier.copy(c[:copies]) }.should raise_error(ArgumentError)
+            -> { GitCloner::Copier.copy(c[:copies]) }.should raise_error(ArgumentError)
             next
           end
           GitCloner::Copier.copy(c[:copies])

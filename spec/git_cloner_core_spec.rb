@@ -165,7 +165,7 @@ repos [
 
           # -- when --
           if c[:has_error]
-            lambda { git_cloner_core.clone }.should raise_error(StandardError)
+            -> { git_cloner_core.clone }.should raise_error(StandardError)
             next
           end
           git_cloner_core.clone
