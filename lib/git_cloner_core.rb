@@ -41,20 +41,20 @@ repos [
 
     #== clone git repositories
     def clone
-      dsl = get_dsl
+      settings = read_settings
       base_dir = Dir.pwd
-      default_output = dsl.git_cloner.default_output
-      repos = dsl.git_cloner.repos
+      default_output = settings.default_output
+      repos = settings.repos
       clone_repositories(default_output, repos, base_dir)
     end
 
     private
 
-    def get_dsl
+    def read_settings
       src = read_dsl
       dsl = GitCloner::Dsl.new
       dsl.instance_eval src
-      dsl
+      dsl.git_cloner
     end
 
     def read_dsl
