@@ -12,6 +12,5 @@ module GitCloner
 
     # git repositries
     attr_accessor :repos
-
   end
 end

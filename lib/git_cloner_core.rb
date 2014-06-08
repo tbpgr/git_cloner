@@ -1,13 +1,13 @@
 # encoding: utf-8
 require 'git_cloner_dsl'
-require "uri"
+require 'uri'
 require 'fileutils'
 require 'copier'
 
 module GitCloner
   #  GitCloner Core
   class Core
-    GIT_CLONER_FILE = "Gitclonerfile"
+    GIT_CLONER_FILE = 'Gitclonerfile'
     GIT_CLONER_TEMPLATE =<<-EOS
 # encoding: utf-8
 
@@ -27,19 +27,19 @@ repos [
     place: 'https://github.com/tbpgr/rspec_piccolo.git',
     output: './tmp',
     copies: [
-      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"}, 
+      {from: "./tmp/rspec_piccolo/lib/rspec_piccolo", to: "./"},
       {from: "./tmp/rspec_piccolo/spec", to: "./sample"}
     ]
   }
 ]
     EOS
 
-    #== generate Gitclonerfile to current directory.
+    # == generate Gitclonerfile to current directory.
     def init
-      File.open(GIT_CLONER_FILE, "w") { |f|f.puts(GIT_CLONER_TEMPLATE) }
+      File.open(GIT_CLONER_FILE, 'w') { |f|f.puts(GIT_CLONER_TEMPLATE) }
     end
 
-    #== clone git repositories
+    # == clone git repositories
     def clone
       settings = read_settings
       base_dir = Dir.pwd

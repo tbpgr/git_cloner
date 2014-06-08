@@ -5,22 +5,12 @@
 # Note that changes in the inspected code, or installation of new
 # versions of RuboCop, may require this file to be generated again.
 
-# Offense count: 1
-# Cop supports --auto-correct.
-EmptyLinesAroundBody:
-  Enabled: false
-
 # Offense count: 2
 Eval:
   Enabled: false
 
 # Offense count: 2
 Lambda:
-  Enabled: false
-
-# Offense count: 2
-# Cop supports --auto-correct.
-LeadingCommentSpace:
   Enabled: false
 
 # Offense count: 1
@@ -38,26 +28,9 @@ RegexpLiteral:
 SpaceAroundOperators:
   Enabled: false
 
-# Offense count: 4
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyleForEmptyBraces, SupportedStyles.
-SpaceInsideHashLiteralBraces:
-  EnforcedStyle: no_space
-
-# Offense count: 41
-# Cop supports --auto-correct.
-# Configuration parameters: EnforcedStyle, SupportedStyles.
-StringLiterals:
-  Enabled: false
-
 # Offense count: 19
 # Configuration parameters: EnforcedStyleForMultiline, SupportedStyles.
 TrailingComma:
-  Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-TrailingWhitespace:
   Enabled: false
 
 # Offense count: 6
