@@ -6,16 +6,6 @@
 # versions of RuboCop, may require this file to be generated again.
 
 # Offense count: 1
-# Configuration parameters: CountComments.
-MethodLength:
-  Max: 15
-
-# Offense count: 2
-# Configuration parameters: MaxSlashes.
-RegexpLiteral:
-  Enabled: false
-
-# Offense count: 1
 # Cop supports --auto-correct.
 SpaceAroundOperators:
   Enabled: false
