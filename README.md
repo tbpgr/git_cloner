@@ -6,6 +6,9 @@
 
 GitCloner clone git repositoris from Gitclonerfile settings.
 
+## Dependency
+GitCloner depends on git. GitCloner use 'git clone' command.
+
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -20,7 +23,13 @@ Or install it yourself as:
 
     $ gem install git_cloner
 
-## CLI-Usage
+## CLI Usage
+
+### show help
+
+~~~bash
+gitcloner h
+~~~
 
 ### generate Gitclonerfile
 
@@ -28,11 +37,18 @@ Or install it yourself as:
 gitcloner init
 ~~~
 
+or 
+
+~~~bash
+gitcloner i
+~~~
+
+Gitclonerfile contents is...  
+
 ~~~ruby
 # encoding: utf-8
 
 # default_output place
-# default_output is required
 # default_output allow only String
 # default_output's default value => "./"
 default_output "./"
@@ -76,31 +92,36 @@ repos [
 ]
 ~~~
 
-### execute clone
+### execute clone repositories
 
 ~~~bash
 gitcloner clone
+~~~
+
+or
+
+~~~bash
+gitcloner c
 ~~~
 
 ### confirm clone result
 
 ~~~bash
 $ tree
-├─helper
-｜ └spec_helper.rb
-├─rspec_piccolo
-｜ └many files...
-├─sample
-｜ ├rspec_piccolo_spec.rb
-｜ └spec_helper.rb
-├─tmp
-｜ └rspec_piccolo
-└─tbpgr_utils
-    └many files...
+┠helper
+┃ ┗spec_helper.rb
+┠rspec_piccolo
+┃ ┗many files...
+┠sample
+┃ ┠rspec_piccolo_spec.rb
+┃ ┗spec_helper.rb
+┠tmp
+┃ ┗rspec_piccolo
+┗tbpgr_utils
 ~~~
 
 ## Direct Usage
-if you want to use GitCloner directry, you can use like this sample.
+if you want to use GitCloner directry in your ruby logic, you can use like this sample.
 
 ~~~ruby
 require 'git_cloner_core'
@@ -124,7 +145,43 @@ repos = [
 GitCloner::Core.new.clone default_output, repos
 ~~~
 
+## Sample Usage
+You want to copy chef cookbooks(cookbook1, cookbook2) to cookbooks directory.
+
+generate Gitclonerfile  
+
+~~~
+gitcloner i
+~~~
+
+edit Gitclonerfile  
+
+~~~ruby
+# encoding: utf-8
+default_output "./cookbooks"
+repos [
+  {place: "https://github.com/some_account/cookbook1.git"},
+  {place: "https://github.com/some_account/cookbook2.git"},
+]
+~~~
+
+execute clone repositories  
+
+~~~bash
+gitcloner c
+~~~
+
+confirm results  
+
+~~~
+$ tree
+┗cookbooks
+   ┠cookbook1
+   ┗cookbook2
+~~~
+
 ## History
+* version 0.0.4 : fix exit status.
 * version 0.0.3 : enable direct call clone.
 * version 0.0.2 : add files,directories copy.
 * version 0.0.1 : first release.

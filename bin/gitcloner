@@ -11,7 +11,7 @@ module GitCloner
     class_option :help, type: :boolean, aliases: '-h', desc: 'help message.'
     class_option :version, type: :boolean, desc: 'version'
 
-    desc 'clone', 'clone git repositories from Gitclonerfile'
+    desc 'clone', 'clone git repositories from Gitclonerfile settings'
     def clone
       GitCloner::Core.new.clone
     rescue => e
