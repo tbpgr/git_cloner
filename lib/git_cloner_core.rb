@@ -8,7 +8,7 @@ module GitCloner
   #  GitCloner Core
   class Core
     GIT_CLONER_FILE = 'Gitclonerfile'
-    GIT_CLONER_TEMPLATE =<<-EOS
+    GIT_CLONER_TEMPLATE = <<-EOS
 # encoding: utf-8
 
 # default_output place
