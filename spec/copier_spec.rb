@@ -13,7 +13,7 @@ describe GitCloner::Copier do
         copies: [
           {
             from: 'from',
-            to: 'to',
+            to: 'to'
           }
         ],
         expected_files: ['to/hoge1.txt', 'to/hoge2.txt']
@@ -24,7 +24,7 @@ describe GitCloner::Copier do
         prepare_files: ['from/hoge1.txt', 'from/hoge2.txt'],
         copies: [
           {
-            to: 'to',
+            to: 'to'
           }
         ],
         expect_error: true
@@ -35,11 +35,11 @@ describe GitCloner::Copier do
         prepare_files: ['from/hoge1.txt', 'from/hoge2.txt'],
         copies: [
           {
-            from: 'from',
+            from: 'from'
           }
         ],
         expect_error: true
-      },
+      }
     ]
 
     cases.each do |c|

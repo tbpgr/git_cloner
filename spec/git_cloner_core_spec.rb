@@ -10,8 +10,8 @@ describe GitCloner::Core do
         case_no: 1,
         case_title: 'valid case',
         expected_file: GitCloner::Core::GIT_CLONER_FILE,
-        expected_content: GitCloner::Core::GIT_CLONER_TEMPLATE,
-      },
+        expected_content: GitCloner::Core::GIT_CLONER_TEMPLATE
+      }
     ]
 
     cases.each do |c|
@@ -127,32 +127,32 @@ repos [
         case_no: 1,
         case_title: 'valid case',
         input: GIT_CLONER_CASE1,
-        expecteds: ['./tmp/rspec_piccolo', './denrei'],
+        expecteds: ['./tmp/rspec_piccolo', './denrei']
       },
       {
         case_no: 2,
         case_title: 'invalid repos case(String)',
         input: GIT_CLONER_CASE2,
-        has_error: true,
+        has_error: true
       },
       {
         case_no: 3,
         case_title: 'invalid repos case(Array[Not Hash])',
         input: GIT_CLONER_CASE3,
-        has_error: true,
+        has_error: true
       },
       {
         case_no: 4,
         case_title: 'invalid repos case(Array[Hash] but invalid hash key)',
         input: GIT_CLONER_CASE4,
-        has_error: true,
+        has_error: true
       },
       {
         case_no: 5,
         case_title: 'clone git and copy directories case',
         input: GIT_CLONER_CASE5,
-        expecteds: ['./tmp/rspec_piccolo', './denrei', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo'],
-      },
+        expecteds: ['./tmp/rspec_piccolo', './denrei', './sample/rspec_piccolo_spec.rb', './sample/spec_helper.rb', './rspec_piccolo']
+      }
     ]
 
     cases.each do |c|
