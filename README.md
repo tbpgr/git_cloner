@@ -121,7 +121,7 @@ $ tree
 ~~~
 
 ## Direct Usage
-if you want to use GitCloner directry in your ruby logic, you can use like this sample.
+if you want to use GitCloner directly in your ruby logic, you can use like this sample.
 
 ~~~ruby
 require 'git_cloner_core'
