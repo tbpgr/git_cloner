@@ -1,5 +1,6 @@
 # GitCloner
 
+[![Gem Version](https://badge.fury.io/rb/git_cloner.svg)](http://badge.fury.io/rb/git_cloner)
 [![Build Status](https://travis-ci.org/tbpgr/git_cloner.png?branch=master)](https://travis-ci.org/tbpgr/git_cloner)
 [![Coverage Status](https://coveralls.io/repos/tbpgr/git_cloner/badge.png)](https://coveralls.io/r/tbpgr/git_cloner)
 [![Code Climate](https://codeclimate.com/github/tbpgr/git_cloner.png)](https://codeclimate.com/github/tbpgr/git_cloner)
